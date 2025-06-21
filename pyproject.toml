@@ -92,6 +92,8 @@ mypy = "1.*"
 pinecone = "5.*"
 wikipedia = "1.*"
 scikit-learn = "1.*"
+langchain-upstage = "^0.6.0"
+llama-cpp-python = "^0.3.9"
 
 [build-system]
 requires = ["poetry-core"]
