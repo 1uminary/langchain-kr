@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 from langchain_teddynote.prompts import load_prompt
-from langchain import hub
+import glob
 
 load_dotenv()
 
@@ -16,8 +16,10 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
     clear_btn = st.button("대화 초기화")
+
+    prompt_files = glob.glob("prompts/*.yaml")
     selected_prompt = st.selectbox(
-        "프롬프트를 선택해 주세요", ("기본모드", "SNS 게시글", "요약"), index=0
+        "프롬프트를 선택해 주세요", prompt_files, index=0
     )
 
 def print_messages():
