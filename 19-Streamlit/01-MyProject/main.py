@@ -21,6 +21,7 @@ with st.sidebar:
     selected_prompt = st.selectbox(
         "프롬프트를 선택해 주세요", prompt_files, index=0
     )
+    task_input = st.text_input("TASK 입력", "")
 
 def print_messages():
     for chat_message in st.session_state["messages"]:
@@ -29,9 +30,11 @@ def print_messages():
 def add_message(role, message):
     st.session_state["messages"].append(ChatMessage(role=role, content=message))
 
-def create_chain(prompt_filepath):
+def create_chain(prompt_filepath, task=""):
     prompt = load_prompt(prompt_filepath, encoding="utf-8")
-    
+    if task:
+        promt = prompt.partial(task=task)
+
     llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
     output_parser = StrOutputParser()
 
@@ -44,7 +47,7 @@ user_input = st.chat_input("궁금한 내용을 물어보세요!")
 
 if user_input:
     st.chat_message("user").write(user_input)
-    chain = create_chain(selected_prompt)
+    chain = create_chain(selected_prompt, task=task_input)
 
     # 선택된 프롬프트 타입에 따라 입력 변수 키를 동적으로 설정
     input_key = "question"
