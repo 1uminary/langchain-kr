@@ -29,17 +29,8 @@ def print_messages():
 def add_message(role, message):
     st.session_state["messages"].append(ChatMessage(role=role, content=message))
 
-def create_chain(prompt_type):
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", "당신은 친절한 AI 어시스턴트입니다. 다음의 질문에 간결하게 답변해 주세요."),
-            ("user", "#Question:\n{question}"),
-	]
-    )
-    if prompt_type == "SNS 게시글":
-        prompt = load_prompt("prompts/sns.yaml", encoding="utf-8")
-    elif prompt_type == "요약":
-        prompt = hub.pull("teddynote/chain-of-density-map-korean")
+def create_chain(prompt_filepath):
+    prompt = load_prompt(prompt_filepath, encoding="utf-8")
     
     llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
     output_parser = StrOutputParser()
