@@ -100,7 +100,7 @@ def create_chain(retriever, model_name="xionic"):
 
         # 단계 7: 언어모델(LLM) 생성
         # Ollama 모델을 불러옵니다.
-        llm = ChatOllama(model="EEVE-Korean-10.8B:latest", temperature=0)
+        llm = ChatOllama(model="gemma3:4b-it-qat", temperature=0)
 
     # 단계 8: 체인(Chain) 생성
     chain = (
