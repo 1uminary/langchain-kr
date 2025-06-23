@@ -33,7 +33,7 @@ def add_message(role, message):
 def create_chain(prompt_filepath, task=""):
     prompt = load_prompt(prompt_filepath, encoding="utf-8")
     if task:
-        promt = prompt.partial(task=task)
+        prompt = prompt.partial(task=task)
 
     llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
     output_parser = StrOutputParser()
